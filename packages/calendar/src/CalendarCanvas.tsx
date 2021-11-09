@@ -99,6 +99,7 @@ const InnerCalendarCanvas = memo(
             monthSpacing,
             daySpacing,
             align,
+            monthTrimEnd: false
         })
         const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
         const monthLegends = useMonthLegends({

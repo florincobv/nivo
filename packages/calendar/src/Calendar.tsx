@@ -37,6 +37,7 @@ const InnerCalendar = ({
     monthLegendOffset = calendarDefaultProps.monthLegendOffset,
     monthLegendPosition = calendarDefaultProps.monthLegendPosition,
     monthSpacing = calendarDefaultProps.monthSpacing,
+    monthTrimEnd = calendarDefaultProps.monthTrimEnd,
 
     dayBorderColor = calendarDefaultProps.dayBorderColor,
     dayBorderWidth = calendarDefaultProps.dayBorderWidth,
@@ -68,6 +69,7 @@ const InnerCalendar = ({
         monthSpacing,
         daySpacing,
         align,
+        monthTrimEnd,
     })
     const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
     const monthLegends = useMonthLegends({

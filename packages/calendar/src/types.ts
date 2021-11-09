@@ -136,6 +136,7 @@ export type CommonCalendarProps = {
     monthLegend: (year: number, month: number, date: Date) => string | number
     monthLegendOffset: number
     monthLegendPosition: 'before' | 'after'
+    monthTrimEnd: boolean
 
     daySpacing: number
     dayBorderWidth: number

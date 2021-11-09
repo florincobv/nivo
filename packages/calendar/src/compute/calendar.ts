@@ -228,6 +228,7 @@ export const computeLayout = ({
     monthSpacing,
     daySpacing,
     align,
+    monthTrimEnd,
 }: Pick<
     Required<CalendarSvgProps>,
     | 'align'
@@ -239,6 +240,7 @@ export const computeLayout = ({
     | 'yearSpacing'
     | 'monthSpacing'
     | 'daySpacing'
+    | 'monthTrimEnd'
 >) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
@@ -316,32 +318,36 @@ export const computeLayout = ({
         const yearEnd = new Date(year + 1, 0, 1)
 
         days = days.concat(
-            timeDays(yearStart, yearEnd).map(dayDate => {
-                return {
-                    date: dayDate,
-                    day: dayFormat(dayDate),
-                    size: cellSize,
-                    ...cellPosition(originX, originY, dayDate, i),
-                }
-            })
+            timeDays(yearStart, yearEnd)
+                .filter(dayDate => dayDate.getMonth() !== 10)
+                .map(dayDate => {
+                    return {
+                        date: dayDate,
+                        day: dayFormat(dayDate),
+                        size: cellSize,
+                        ...cellPosition(originX, originY, dayDate, i),
+                    }
+                })
         )
 
-        const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate => ({
-            date: monthDate,
-            year: monthDate.getFullYear(),
-            month: monthDate.getMonth(),
-            ...memoMonthPathAndBBox({
-                originX,
-                originY,
+        const yearMonths = timeMonths(yearStart, yearEnd)
+            .filter(monthDate => monthDate.getMonth() !== 10)
+            .map(monthDate => ({
                 date: monthDate,
-                direction,
-                yearIndex: i,
-                yearSpacing,
-                monthSpacing,
-                daySpacing,
-                cellSize,
-            }),
-        }))
+                year: monthDate.getFullYear(),
+                month: monthDate.getMonth(),
+                ...memoMonthPathAndBBox({
+                    originX,
+                    originY,
+                    date: monthDate,
+                    direction,
+                    yearIndex: i,
+                    yearSpacing,
+                    monthSpacing,
+                    daySpacing,
+                    cellSize,
+                }),
+            }))
 
         months = months.concat(yearMonths)
 
@@ -350,8 +356,8 @@ export const computeLayout = ({
             bbox: {
                 x: yearMonths[0].bbox.x,
                 y: yearMonths[0].bbox.y,
-                width: yearMonths[11].bbox.x - yearMonths[0].bbox.x + yearMonths[11].bbox.width,
-                height: yearMonths[11].bbox.y - yearMonths[0].bbox.y + yearMonths[11].bbox.height,
+                width: yearMonths[10].bbox.x - yearMonths[0].bbox.x + yearMonths[10].bbox.width,
+                height: yearMonths[10].bbox.y - yearMonths[0].bbox.y + yearMonths[10].bbox.height,
             },
         })
     })

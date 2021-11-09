@@ -25,6 +25,7 @@ const commonDefaultProps = {
     monthLegend: (_year: number, _month: number, date: Date) => monthLabelFormat(date),
     monthLegendPosition: 'before',
     monthLegendOffset: 10,
+    monthTrimEnd: false,
 
     daySpacing: 0,
     dayBorderWidth: 1,

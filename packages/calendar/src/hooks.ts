@@ -19,6 +19,7 @@ export const useCalendarLayout = ({
     monthSpacing,
     daySpacing,
     align,
+    monthTrimEnd,
 }: Pick<
     Required<CalendarSvgProps>,
     | 'width'
@@ -30,6 +31,7 @@ export const useCalendarLayout = ({
     | 'monthSpacing'
     | 'daySpacing'
     | 'align'
+    | 'monthTrimEnd'
 >) =>
     useMemo(
         () =>
@@ -43,8 +45,9 @@ export const useCalendarLayout = ({
                 monthSpacing,
                 daySpacing,
                 align,
+                monthTrimEnd,
             }),
-        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
+        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align, monthTrimEnd]
     )
 
 export const useColorScale = ({
